@@ -1,6 +1,7 @@
-project(core)
+project(core CXX)
 
 add_library(${PROJECT_NAME} STATIC)
+add_library(${CMAKE_PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(
   ${PROJECT_NAME}
@@ -11,8 +12,8 @@ target_sources(
 target_include_directories(
   ${PROJECT_NAME}
   PUBLIC
-    "$<INSTALL_INTERFACE:include/core>"
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
+    "$<INSTALL_INTERFACE:include/${CMAKE_PROJECT_NAME}/${PROJECT_NAME}>"
+    "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>"
   PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}" 
 )
@@ -36,5 +37,5 @@ install(
   LIBRARY 
     DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
   PUBLIC_HEADER 
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME}/${PROJECT_NAME}"
 )
