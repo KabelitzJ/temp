@@ -1,10 +1,13 @@
 #ifndef TEMP_CORE_HPP_
 #define TEMP_CORE_HPP_
 
+#include <type_traits>
+#include <string>
+
 namespace temp {
 
 template<typename T>
-T add(T lhs, T rhs);
+std::enable_if_t<std::is_arithmetic_v<T>, T> add(T lhs, T rhs);
 
 template<>
 int add<int>(int lhs, int rhs);
